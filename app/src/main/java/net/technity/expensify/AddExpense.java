@@ -18,6 +18,10 @@ import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
 import java.text.SimpleDateFormat;
@@ -29,6 +33,7 @@ public class AddExpense extends AppCompatActivity implements DatePickerDialog.On
     boolean isSpent = false;
     long createdAt;
     RadioGroup selectGroup;
+    FirebaseDatabase database;
     RadioButton income, expense;
     RelativeLayout pickDate;
     Calendar calendar = Calendar.getInstance();
@@ -38,6 +43,7 @@ public class AddExpense extends AppCompatActivity implements DatePickerDialog.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_expense);
+        database = FirebaseDatabase.getInstance();
         FloatingActionButton fab =  findViewById(R.id.fab);
         amount = findViewById(R.id.amount_editText);
         amountLayout = findViewById(R.id.amount_layout);
@@ -72,6 +78,18 @@ public class AddExpense extends AppCompatActivity implements DatePickerDialog.On
             @Override
             public void onClick(View view) {
                 if (validate()) {
+                    e = new Expense(title.getText().toString(),
+                                note.getText().toString(),
+                            Double.parseDouble(amount.getText().toString()),
+                            createdAt,
+                            isSpent
+                            );
+                    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                    DatabaseReference ref = null;
+                    if (user != null) {
+                        ref = database.getReference("users/" + user.getUid()+ "/expenses");
+                        ref.push().setValue(e);
+                    }
                     Intent i = new Intent(AddExpense.this, MainActivity.class);
                     SharedPreferences prefs = getPreferences(MODE_PRIVATE);
                     SharedPreferences.Editor editor = prefs.edit();

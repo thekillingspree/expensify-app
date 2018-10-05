@@ -16,6 +16,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import net.technity.expensify.Adapters.ExpenseAdapter;
 
@@ -62,6 +66,12 @@ public class MainActivity extends AppCompatActivity
         toggle.syncState();
 
         NavigationView navigationView =  findViewById(R.id.nav_view);
+        View header = navigationView.getHeaderView(0);
+        TextView name = header.findViewById(R.id.user_name);
+        TextView email = header.findViewById(R.id.user_email);
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        name.setText(currentUser != null ? currentUser.getDisplayName() : "AAHA");
+        email.setText(currentUser != null ? currentUser.getEmail() : "Ohhoo");
         navigationView.setNavigationItemSelectedListener(this);
     }
 
