@@ -13,6 +13,7 @@ import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
@@ -29,6 +30,7 @@ import java.util.Calendar;
 
 public class AddExpense extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
     TextView amount, note, title, pickDateText;
+    ImageView backBtn;
     TextInputLayout amountLayout, expenseLayout;
     boolean isSpent = false;
     long createdAt;
@@ -45,6 +47,7 @@ public class AddExpense extends AppCompatActivity implements DatePickerDialog.On
         setContentView(R.layout.activity_add_expense);
         database = FirebaseDatabase.getInstance();
         FloatingActionButton fab =  findViewById(R.id.fab);
+        backBtn = findViewById(R.id.back_btn_add_expense);
         amount = findViewById(R.id.amount_editText);
         amountLayout = findViewById(R.id.amount_layout);
         expenseLayout = findViewById(R.id.expense_layout);
@@ -95,6 +98,13 @@ public class AddExpense extends AppCompatActivity implements DatePickerDialog.On
                     SharedPreferences.Editor editor = prefs.edit();
                     startActivity(i);
                 }
+            }
+        });
+
+        backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
             }
         });
     }

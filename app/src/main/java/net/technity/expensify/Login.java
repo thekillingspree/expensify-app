@@ -26,10 +26,10 @@ public class Login extends AppCompatActivity {
 
     public void onLoginClicked(View view) {
         List<AuthUI.IdpConfig> providers = Arrays.asList(
-                new AuthUI.IdpConfig.GoogleBuilder().build()
+                new AuthUI.IdpConfig.GoogleBuilder().build(),
+                new AuthUI.IdpConfig.EmailBuilder().build()
                 );
 
-// Create and launch sign-in intent
         startActivityForResult(
                 AuthUI.getInstance()
                         .createSignInIntentBuilder()
@@ -47,17 +47,11 @@ public class Login extends AppCompatActivity {
             IdpResponse response = IdpResponse.fromResultIntent(data);
 
             if (resultCode == RESULT_OK) {
-                // Successfully signed in
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
                 Intent i = new Intent(this, MainActivity.class);
                 startActivity(i);
-                // ...
             } else {
-                // Sign in failed. If response is null the user canceled the
-                // sign-in flow using the back button. Otherwise check
-                // response.getError().getErrorCode() and handle the error.
-                // ...
                 Toast.makeText(this, "Sign In Falied", Toast.LENGTH_LONG).show();
             }
         }
@@ -70,6 +64,7 @@ public class Login extends AppCompatActivity {
         if (currentUser != null) {
             Intent i = new Intent(this, MainActivity.class);
             startActivity(i);
+            finish();
         }
     }
 }

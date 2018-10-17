@@ -5,10 +5,35 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Login">
-    <Button
+
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Login"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="94dp"
+        android:textAlignment="center"
+        android:text="Login\nTo Expensify"
+        android:id="@+id/login_txt"
+        android:textColor="@color/black"
+        android:textSize="46sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="239dp"
+        android:text="Login and track your expenses from anywhere!" />
+    <Button
+        android:layout_width="236dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="38dp"
+        android:background="@color/google_btn"
         android:onClick="onLoginClicked"
-        android:layout_centerInParent="true"/>
+        android:text="Login With Google"
+        android:textColor="@color/white" />
 </RelativeLayout>

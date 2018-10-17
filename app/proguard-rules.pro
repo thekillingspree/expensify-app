@@ -19,3 +19,12 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+-keepattributes Signature
+
+-keepattributes class net.technity.expensify.java.** {
+   *;
+}
+
+-keepclassmembers class net.technity.expensify.java.** {
+    *;
+}

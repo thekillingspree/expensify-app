@@ -4,6 +4,8 @@
 
 package net.technity.expensify;
 
+import android.support.annotation.Nullable;
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
@@ -13,7 +15,12 @@ public class Expense {
     private double eAmount;
     private long createdAt;
 
-    public Expense (String t, String n, double amt, long createdAt, boolean isSpent) {
+    public Expense() {
+
+    }
+
+    public Expense (String t, String n, double amt, long createdAt,
+                    boolean isSpent) {
         this.eTitle = t;
         this.eNotes = n;
         this.eAmount = amt;
